@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const [tools, setTools] = useState("");
   const [boringTools, setBoringTools] = useState("");
   const [level, setLevel] = useState<levelType>("Do not specify");
-  const [generatedBios, setGeneratedBios] = useState<String>("");
+  const [generatedBios, setGeneratedBios] = useState<string>("");
 
   const bioRef = useRef<null | HTMLDivElement>(null);
 
@@ -31,21 +31,21 @@ const Home: NextPage = () => {
     switch (level) {
       case "Do not specify":
         return "";
-        break;
       case "Senior":
-        return "only Seniors titles";
-        break;
+        return ", only Seniors titles.";
       case "Junior":
-        return "only Junior titles";
-        break;
+        return ", only Junior titles.";
       default:
         return "";
     }
   };
 
-  const prompt = `Create a perfect query for i use in linkedin searchbar, use the opperators AND, OR, NOT e () for that.Just give me the code, without explanation.
-  I'm a ${title} professional that uses ${tools} and don't like to use ${boringTools}. , ${switchLevel()}
-  `;
+  let boringToolsText = ''
+  if (boringTools?.length !== 0) {
+    boringToolsText = `, I don't like to use ${boringTools}`
+  }
+
+  const prompt = `Create a perfect query for I use in linkedin searchbar, use the opperators AND, OR, NOT e () for that. Just give me the code, without explanation. I'm a ${title} professional that uses ${tools}${boringToolsText}${switchLevel()}`;
 
   const generateBio = async (e: any) => {
     e.preventDefault();
@@ -132,11 +132,10 @@ const Home: NextPage = () => {
           <div className="flex mt-10 items-center space-x-3">
             <p className="text-left font-medium text-blue-600">1</p>
             <p className="text-left font-medium">
-              Your job title
+              Your job title&nbsp;
               <span className="text-slate-500">
-                ( don't worrie about details, just a word )
-              </span>
-              .
+                (don't worrie about details, just a word)
+              </span>.
             </p>
           </div>
           <input
@@ -148,9 +147,9 @@ const Home: NextPage = () => {
           <div className="flex mt-10 items-center space-x-3">
             <p className="text-left font-medium text-blue-600">2</p>
             <p className="text-left font-medium">
-              Tools that you use
+              Tools that you use&nbsp;
               <span className="text-slate-500">
-                ( Languages to code, excel toolkit ... )
+                (Languages to code, excel toolkit...)
               </span>
               .
             </p>
@@ -176,9 +175,9 @@ const Home: NextPage = () => {
           <div className="flex mb-5 items-center space-x-3">
             <p className="text-left font-medium text-blue-600">4</p>
             <p className="text-left font-medium">
-              Your level{" "}
+              Your level&nbsp;
               <span className="text-slate-500">
-                ( mid-levels do not specify )
+                (mid-levels do not specify)
               </span>
             </p>
           </div>
